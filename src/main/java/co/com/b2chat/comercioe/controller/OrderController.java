@@ -1,6 +1,6 @@
 package co.com.b2chat.comercioe.controller;
 
-import co.com.b2chat.comercioe.OrdenEstado;
+import co.com.b2chat.comercioe.enums.OrdenEstado;
 import co.com.b2chat.comercioe.dto.PedidoDto;
 import co.com.b2chat.comercioe.dto.RespuestaGenerica;
 import co.com.b2chat.comercioe.entity.Orden;

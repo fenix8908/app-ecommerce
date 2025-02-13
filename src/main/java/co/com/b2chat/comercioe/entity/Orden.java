@@ -1,8 +1,7 @@
 package co.com.b2chat.comercioe.entity;
 
 
-import co.com.b2chat.comercioe.OrdenEstado;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import co.com.b2chat.comercioe.enums.OrdenEstado;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;

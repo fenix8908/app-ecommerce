@@ -1,4 +1,4 @@
-package co.com.b2chat.comercioe;
+package co.com.b2chat.comercioe.enums;
 
 public enum OrdenEstado {
 

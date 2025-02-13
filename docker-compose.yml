@@ -18,3 +18,8 @@ services:
       POSTGRES_PASSWORD: pass123
     ports:
       - "5432:5432"
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"

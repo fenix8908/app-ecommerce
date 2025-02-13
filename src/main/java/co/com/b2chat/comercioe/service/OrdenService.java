@@ -1,6 +1,6 @@
 package co.com.b2chat.comercioe.service;
 
-import co.com.b2chat.comercioe.OrdenEstado;
+import co.com.b2chat.comercioe.enums.OrdenEstado;
 import co.com.b2chat.comercioe.dto.PedidoDto;
 import co.com.b2chat.comercioe.dto.RespuestaGenerica;
 import co.com.b2chat.comercioe.entity.Orden;
@@ -15,8 +15,6 @@ import co.com.b2chat.comercioe.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrdenService {

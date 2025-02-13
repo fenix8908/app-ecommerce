@@ -1,6 +1,6 @@
 package co.com.b2chat.comercioe.service;
 
-import co.com.b2chat.comercioe.OrdenEstado;
+import co.com.b2chat.comercioe.enums.OrdenEstado;
 import co.com.b2chat.comercioe.dto.PedidoDto;
 import co.com.b2chat.comercioe.dto.RespuestaGenerica;
 import co.com.b2chat.comercioe.entity.DetallePedido;
@@ -12,12 +12,10 @@ import co.com.b2chat.comercioe.excepciones.StockInsuficienteException;
 import co.com.b2chat.comercioe.repository.OrdenRepository;
 import co.com.b2chat.comercioe.repository.ProductoRepository;
 import co.com.b2chat.comercioe.repository.UsuarioRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
