@@ -2,6 +2,8 @@ package co.com.b2chat.comercioe.entity;
 
 
 import co.com.b2chat.comercioe.OrdenEstado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Orden {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<DetallePedido> items;
 
     @Enumerated(EnumType.STRING)

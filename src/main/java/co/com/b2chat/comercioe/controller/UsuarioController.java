@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 public class UsuarioController {
 
     private UsuarioService usuarioService;
@@ -21,7 +21,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping(value = "/crear")
+    @PostMapping
     public ResponseEntity<RespuestaGenerica<?>> registrarUsuario(@RequestBody UsuarioDto usuario) {
         try {
             Usuario userCreado = usuarioService.guardarUsuario(usuario);

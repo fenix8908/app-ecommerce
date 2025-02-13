@@ -11,31 +11,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/products")
 public class ProductoController {
 
     @Autowired
     private ProductoService productoService;
 
-    @PostMapping("/crear")
+    @PostMapping
     public ResponseEntity<Producto> addProduct(@RequestBody ProductoDto productoDto) {
         Producto productoGuardado = productoService.guardarProducto(productoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productoGuardado);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ProductoDto>> getAllProducts() {
         List<ProductoDto> products = productoService.obtenerProductos();
         return ResponseEntity.ok(products);
     }
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductoDto> updateProduct(@PathVariable Long id, @RequestBody ProductoDto productoDto) {
         ProductoDto productoEditado = productoService.editarProducto(id, productoDto);
         return ResponseEntity.ok(productoEditado);
     }
 
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productoService.eliminarProducto(id);
         return ResponseEntity.noContent().build();

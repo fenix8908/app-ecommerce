@@ -2,6 +2,7 @@ package co.com.b2chat.comercioe.service;
 
 import co.com.b2chat.comercioe.dto.UsuarioDto;
 import co.com.b2chat.comercioe.entity.Usuario;
+import co.com.b2chat.comercioe.excepciones.RecursoNoEncontradoException;
 import co.com.b2chat.comercioe.mappers.UsuarioMapper;
 import co.com.b2chat.comercioe.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class UsuarioService {
 
     public Usuario getUserById(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado"));
     }
 
 

@@ -1,6 +1,8 @@
 package co.com.b2chat.comercioe.service;
 
 import co.com.b2chat.comercioe.OrdenEstado;
+import co.com.b2chat.comercioe.dto.PedidoDto;
+import co.com.b2chat.comercioe.dto.RespuestaGenerica;
 import co.com.b2chat.comercioe.entity.Orden;
 import co.com.b2chat.comercioe.entity.DetallePedido;
 import co.com.b2chat.comercioe.entity.Producto;
@@ -10,6 +12,7 @@ import co.com.b2chat.comercioe.excepciones.StockInsuficienteException;
 import co.com.b2chat.comercioe.repository.OrdenRepository;
 import co.com.b2chat.comercioe.repository.ProductoRepository;
 import co.com.b2chat.comercioe.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +36,8 @@ public class OrdenService {
         this.productoRepository = productoRepository;
     }
 
-    public Orden crearOrden(Long userId, List<DetallePedido> items) {
+    @Transactional
+    public RespuestaGenerica crearOrden(Long userId, PedidoDto pedidoDto) {
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado"));
 
@@ -41,7 +45,7 @@ public class OrdenService {
         orden.setUsuario(usuario);
         orden.setEstado(OrdenEstado.PENDIENTE);
 
-        for (DetallePedido item : items) {
+        for (DetallePedido item : pedidoDto.getItems()) {
             Producto producto = productoRepository.findById(item.getProducto().getId())
                     .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado"));
 
@@ -53,10 +57,20 @@ public class OrdenService {
             productoRepository.save(producto);
 
             item.setOrden(orden);
-        }
 
-        orden.setItems(items);
-        return ordenRepository.save(orden);
+        }
+        orden.setItems(pedidoDto.getItems());
+        return generarRespuestaPedido(orden);
+
+    }
+
+    private RespuestaGenerica<Object> generarRespuestaPedido(Orden orden) {
+        Orden ordenGuarda = ordenRepository.save(orden);
+        if(ordenGuarda != null){
+            return RespuestaGenerica.builder().exito(true).mensaje("El pedido ha sido creado").build();
+        }else{
+            return RespuestaGenerica.builder().exito(false).mensaje("No fue posible crear el pedido").build();
+        }
     }
 
     public Orden obtenerOrdenPorId(Long id) {
