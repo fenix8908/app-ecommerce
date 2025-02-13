@@ -1,8 +1,13 @@
 package co.com.b2chat.comercioe.service;
 
+import co.com.b2chat.comercioe.dto.ProductoDto;
 import co.com.b2chat.comercioe.entity.Producto;
 import co.com.b2chat.comercioe.excepciones.RecursoNoEncontradoException;
+import co.com.b2chat.comercioe.mappers.ProductoMapper;
+import co.com.b2chat.comercioe.mappers.UsuarioMapper;
 import co.com.b2chat.comercioe.repository.ProductoRepository;
+import org.hibernate.collection.spi.PersistentList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,27 +15,37 @@ import java.util.List;
 @Service
 public class ProductoService {
 
+    private final ProductoMapper productoMapper = ProductoMapper.INSTANCIA;
+
     private ProductoRepository productoRepository;
 
-    public Producto guaradarProducto(Producto producto) {
+    @Autowired
+    public ProductoService(ProductoRepository productoRepository) {
+        this.productoRepository = productoRepository;
+    }
+
+    public Producto guardarProducto(ProductoDto productoDto) {
+        Producto producto = productoMapper.productoDtoToProductoEntity(productoDto);
         return productoRepository.save(producto);
     }
 
-    public List<Producto> obtenerProductos() {
-        return productoRepository.findAll();
+    public List<ProductoDto> obtenerProductos() {
+        List<ProductoDto> productos = productoMapper.productoListEntityToListDto(productoRepository.findAll());
+        return productos;
     }
 
-    public Producto editarProducto(Long id, Producto detalleProducto) {
+    public ProductoDto editarProducto(Long id, ProductoDto detalleProducto) {
+
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado"));
         producto.setNombre(detalleProducto.getNombre());
         producto.setDescripcion(detalleProducto.getDescripcion());
         producto.setPrecio(detalleProducto.getPrecio());
         producto.setStock(detalleProducto.getStock());
-        return productoRepository.save(producto);
+        return productoMapper.productoEntityToproductoDto(productoRepository.save(producto));
     }
 
-    public void eliminarProduct(Long id) {
+    public void eliminarProducto(Long id) {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Producto no encontrado"));
         productoRepository.delete(producto);
