@@ -1,4 +1,4 @@
-1: Para configurar o levantar el proyecto es necesario tener una instancia local de postgres bien
+1: Para configurar o levantar el proyecto es necesario tener una instancia local de postgres o bien
 levantar el docker compose con el comando: docker-compose up --build estando ubicado en la raiz del proyecto (para esto es necesario tener instalado docker en la maquina)
 
 2: listado de end-points: path local = http://localhost:8080
